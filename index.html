@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lucky Wheel security-awareness demo showing how browser permissions work with explicit user consent." />
+  <title>Lucky Wheel — Security Awareness Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero-card" aria-labelledby="page-title">
+      <div class="badge">Security Awareness Demo</div>
+      <h1 id="page-title">🎡 Lucky Wheel</h1>
+      <p class="subtitle">Spin the wheel, then optionally try browser permissions in a safe, transparent demo.</p>
+
+      <div class="notice" role="note">
+        <strong>Privacy first:</strong> camera, microphone and location are requested only after you press the relevant button. Media is never uploaded or saved.
+      </div>
+
+      <div class="permission-grid" aria-label="Permission demo controls">
+        <button class="permission-btn" id="mediaDemoBtn" type="button">
+          <span class="icon">📷</span>
+          <span>Try Camera + Mic Demo</span>
+          <small>Records locally for 3 seconds, then discards it</small>
+        </button>
+        <button class="permission-btn" id="locationDemoBtn" type="button">
+          <span class="icon">📍</span>
+          <span>Try Location Demo</span>
+          <small>Shows an approximate place only on this page</small>
+        </button>
+      </div>
+
+      <div class="security-indicator" id="securityIndicator" hidden aria-live="polite">
+        <span class="recording-dot" aria-hidden="true"></span>
+        <span>Camera & microphone active — demo stops automatically in 3 seconds</span>
+      </div>
+
+      <video id="cameraVideo" autoplay muted playsinline hidden></video>
+
+      <section class="wheel-section" aria-label="Prize wheel">
+        <div class="wheel-wrap">
+          <div class="pointer" aria-hidden="true"></div>
+          <div class="wheel" id="wheel" role="button" tabindex="0" aria-label="Spin the prize wheel">
+            <div class="wheel-label label-1">Free Website</div>
+            <div class="wheel-label label-2">Free Hosting</div>
+            <div class="wheel-label label-3">Free SEO</div>
+            <div class="wheel-label label-4">₹1000 Cash</div>
+            <div class="wheel-label label-5">Free AI Video</div>
+            <div class="wheel-label label-6">₹100 Cash</div>
+            <div class="wheel-label label-7">Better Luck</div>
+          </div>
+          <button id="spinBtn" class="spin-btn" type="button">SPIN</button>
+        </div>
+        <p class="hint">Click <strong>SPIN</strong> or the wheel</p>
+      </section>
+    </section>
+
+    <section class="form-card" id="formContainer" hidden>
+      <h2>Claim Your Demo Prize</h2>
+      <p class="form-note">This form is for the demo only. Submitted values stay in your browser and are not sent anywhere.</p>
+
+      <form id="userForm" novalidate>
+        <div class="form-grid">
+          <label class="form-group">
+            <span>Full Name</span>
+            <input type="text" id="name" name="name" autocomplete="name" required maxlength="80" />
+          </label>
+          <label class="form-group">
+            <span>Email</span>
+            <input type="email" id="email" name="email" autocomplete="email" required maxlength="120" />
+          </label>
+          <label class="form-group">
+            <span>Phone Number</span>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" required maxlength="25" />
+          </label>
+          <label class="form-group">
+            <span>Location</span>
+            <input type="text" id="location" name="location" placeholder="Optional — use the Location Demo button above" readonly />
+          </label>
+          <label class="form-group full-width">
+            <span>Prize Won</span>
+            <input type="text" id="prize" name="prize" readonly />
+          </label>
+        </div>
+
+        <label class="consent-row">
+          <input type="checkbox" id="formConsent" required />
+          <span>I understand this is a security-awareness demo and the form data is not transmitted.</span>
+        </label>
+
+        <button type="submit" class="submit-btn">Submit Demo Details</button>
+      </form>
+
+      <div id="submissionSummary" class="submission-summary" hidden aria-live="polite"></div>
+    </section>
+  </main>
+
+  <dialog id="resultModal" class="result-modal">
+    <div class="modal-content">
+      <div class="confetti">🎉</div>
+      <h2>Congratulations!</h2>
+      <p id="resultText" class="result-text"></p>
+      <button id="closeModalBtn" class="close-btn" type="button">Continue</button>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
