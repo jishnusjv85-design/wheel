@@ -71,3 +71,4 @@ The current form intentionally does not transmit personal data. If you later nee
 4. Server-side validation and rate limiting.
 5. A retention/deletion policy.
 6. Only the minimum data fields required for the stated purpose.
+
